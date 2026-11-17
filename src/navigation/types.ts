@@ -8,3 +8,8 @@ export type AppTabsParamList = {
   Consoles: undefined;
   Profile: undefined;
 };
+
+export type AppStackParamList = {
+  Tabs: undefined;
+  Search: undefined;
+};

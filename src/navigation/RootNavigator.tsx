@@ -1,7 +1,7 @@
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { AuthStack } from './AuthStack';
-import { AppTabs } from './AppTabs';
+import { AppStack } from './AppStack';
 import { colors } from '../constants/theme';
 
 export function RootNavigator() {
@@ -21,5 +21,5 @@ export function RootNavigator() {
       </View>
     );
   }
-  return session ? <AppTabs /> : <AuthStack />;
+  return session ? <AppStack /> : <AuthStack />;
 }
