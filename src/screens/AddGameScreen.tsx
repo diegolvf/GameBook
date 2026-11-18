@@ -10,6 +10,7 @@ import { STATUS_LABELS, STATUS_LIST } from '../constants/status';
 import { GameFormat, GameStatus } from '../types';
 import { colors, spacing } from '../constants/theme';
 import { AppStackParamList } from '../navigation/types';
+import { findCoverUrl } from '../services/tgdbService';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddGame'>;
 
@@ -60,31 +61,38 @@ export function AddGameScreen({ route, navigation }: Props) {
 
     setSaving(true);
     try {
-      await addGame({
-        rawg_id: game.id,
-        title: game.name,
-        cover_url: game.background_image,
-        released: game.released,
-        genres: (game.genres ?? []).map((g) => g.name),
-        platform,
-        console_id: null,
-        format,
-        status,
-        store: store.trim() || null,
-        price,
-        purchase_date: purchaseDate,
-        notes: notes.trim() || null,
-      });
-      Alert.alert('Pronto!', 'Jogo adicionado à sua coleção.', [
-        { text: 'OK', onPress: () => navigation.popToTop() },
-      ]);
+        let coverUrl = game.background_image;
+        try {
+            const boxart = await findCoverUrl(game.name, platform);
+            if (boxart) coverUrl = boxart;
+        } catch (e) {
+            console.log('TheGamesDB falhou:', e);
+        }
+        await addGame({
+            rawg_id: game.id,
+            title: game.name,
+            cover_url: coverUrl,
+            released: game.released,
+            genres: (game.genres ?? []).map((g) => g.name),
+            platform,
+            console_id: null,
+            format,
+            status,
+            store: store.trim() || null,
+            price,
+            purchase_date: purchaseDate,
+            notes: notes.trim() || null,
+        });
+        Alert.alert('Pronto!', 'Jogo adicionado à sua coleção.', [
+            { text: 'OK', onPress: () => navigation.popToTop() },
+        ]);
     } catch (e) {
-      Alert.alert(
+    Alert.alert(
         'Não foi possível salvar',
         e instanceof Error ? e.message : 'Erro desconhecido.'
-      );
+    );
     } finally {
-      setSaving(false);
+    setSaving(false);
     }
   }
 
