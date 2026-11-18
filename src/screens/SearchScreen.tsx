@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { FlatList, Linking, StyleSheet, Text, View } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack'; //
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { SearchResultItem } from '../components/SearchResultItem';
 import { searchGames } from '../services/rawgService';
 import { RawgGame } from '../types/rawgType';
+import { AppStackParamList } from '../navigation/types'; //
 import { colors, spacing } from '../constants/theme';
 
-export function SearchScreen() {
+type Props = NativeStackScreenProps<AppStackParamList, 'Search'>;
+
+export function SearchScreen({ navigation }: Props) { //
   const [term, setTerm] = useState('');
   const [results, setResults] = useState<RawgGame[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,7 +55,7 @@ export function SearchScreen() {
         renderItem={({ item }) => (
           <SearchResultItem
             game={item}
-            onPress={() => console.log('Selecionado:', item.name)}
+            onPress={() => navigation.navigate('AddGame', { game: item })} //[cite: 2] Substituído o console.log
           />
         )}
         ListEmptyComponent={
