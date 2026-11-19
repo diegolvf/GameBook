@@ -13,3 +13,13 @@ export async function addGame(game: NewGame): Promise<Game> {
     if (error) throw new Error(error.message);
     return data as Game;
 }
+
+export async function listGames(): Promise<Game[]> {
+    const { data, error } = await supabase
+        .from('games')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return (data ?? []) as Game[];
+}
