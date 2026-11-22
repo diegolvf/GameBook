@@ -28,3 +28,4 @@ export function parsePrice(text: string): number | null | undefined {
     return Number.isFinite(number) && number >= 0 ? number : undefined;
 }
 
+

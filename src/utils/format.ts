@@ -8,3 +8,11 @@ export function formatDate(iso: string | null): string {
   const [year, month, day] = iso.split('-');
   return `${day}/${month}/${year}`;
 }
+
+export function toDateInput(iso: string | null): string {
+  return iso ? formatDate(iso) : '';
+}
+
+export function toPriceInput(value: number | null): string {
+  return value === null ? '' : value.toFixed(2).replace('.', ',');
+}

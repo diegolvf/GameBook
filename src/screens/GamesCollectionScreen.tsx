@@ -28,7 +28,6 @@ export function GamesCollectionScreen() {
     }
   }, []);
 
-  // recarrega sempre que a aba ganha foco (por exemplo, ao voltar da tela de adicionar)
   useFocusEffect(
     useCallback(() => {
       loadGames().finally(() => setLoading(false));
@@ -41,7 +40,6 @@ export function GamesCollectionScreen() {
     setRefreshing(false);
   }
 
-  // quantos jogos há em cada status (para os botões do filtro)
   const counts = useMemo(() => {
     const result: Record<StatusFilterValue, number> = {
       all: games.length,
@@ -54,7 +52,6 @@ export function GamesCollectionScreen() {
     return result;
   }, [games]);
 
-  // a lista exibida: filtro de status + busca por nome
   const visibleGames = useMemo(() => {
     const text = query.trim().toLowerCase();
     return games.filter(
@@ -89,7 +86,12 @@ export function GamesCollectionScreen() {
       <FlatList
         data={visibleGames}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <GameCard game={item} />}
+        renderItem={({ item }) => (
+          <GameCard
+          game={item}
+          onPress={() => navigation.navigate('GameDetail', { gameId: item.id })}
+          />
+        )}
         refreshing={refreshing}
         onRefresh={handleRefresh}
         contentContainerStyle={styles.list}
