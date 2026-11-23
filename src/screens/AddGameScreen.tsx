@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+import { FormScrollView } from '../components/FormScrollView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { OptionSelector } from '../components/OptionSelector';
 import { addGame } from '../services/gamesService';
-import { parseDateBR, parsePrice } from '../utils/parse';
+import { maskDate, parseDateBR, parsePrice } from '../utils/parse';
 import { STATUS_LABELS, STATUS_LIST } from '../constants/status';
 import { GameFormat, GameStatus } from '../types';
 import { colors, spacing } from '../constants/theme';
@@ -97,11 +98,7 @@ export function AddGameScreen({ route, navigation }: Props) {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="handled"
-    >
+    <FormScrollView>
       {game.background_image ? (
         <Image source={{ uri: game.background_image }} style={styles.cover} />
       ) : null}
@@ -147,8 +144,8 @@ export function AddGameScreen({ route, navigation }: Props) {
       <Input
         label="Data da compra (opcional)"
         value={dateText}
-        onChangeText={setDateText}
-        keyboardType="numbers-and-punctuation"
+        onChangeText={(text) => setDateText(maskDate(text))}
+        keyboardType="number-pad"
         placeholder="DD/MM/AAAA"
         maxLength={10}
       />
@@ -162,7 +159,7 @@ export function AddGameScreen({ route, navigation }: Props) {
       />
 
       <Button title="Adicionar à coleção" onPress={handleSave} loading={saving} />
-    </ScrollView>
+    </FormScrollView>
   );
 }
 

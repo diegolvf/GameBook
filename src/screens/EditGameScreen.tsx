@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
+import { FormScrollView } from '../components/FormScrollView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { OptionSelector } from '../components/OptionSelector';
 import { updateGame } from '../services/gamesService';
-import { parseDateBR, parsePrice } from '../utils/parse';
+import { maskDate, parseDateBR, parsePrice } from '../utils/parse';
 import { toDateInput, toPriceInput } from '../utils/format';
 import { STATUS_LABELS, STATUS_LIST } from '../constants/status';
 import { GameFormat, GameStatus } from '../types';
@@ -76,11 +77,7 @@ export function EditGameScreen({ route, navigation }: Props) {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="handled"
-    >
+    <FormScrollView>
       <Text style={styles.title}>{game.title}</Text>
 
       <Input
@@ -113,8 +110,8 @@ export function EditGameScreen({ route, navigation }: Props) {
       <Input
         label="Data da compra"
         value={dateText}
-        onChangeText={setDateText}
-        keyboardType="numbers-and-punctuation"
+        onChangeText={(text) => setDateText(maskDate(text))}
+        keyboardType="number-pad"
         placeholder="DD/MM/AAAA"
         maxLength={10}
       />
@@ -128,7 +125,7 @@ export function EditGameScreen({ route, navigation }: Props) {
       />
 
       <Button title="Salvar alterações" onPress={handleSave} loading={saving} />
-    </ScrollView>
+    </FormScrollView>
   );
 }
 
