@@ -83,11 +83,11 @@ Com autenticação individual e banco de dados em nuvem, cada usuário possui su
 
 | Tela de Login | Coleção de Jogos | Busca na RAWG |
 | :---: | :---: | :---: |
-| ![Coleção](./assets/Coleção.jpeg) | ![Busca](./assets/Buscar%20Jogo.jpeg) |
+| ![Coleção](./assets/Coleção.jpeg) | ![Busca](./assets/Buscar-jogo.jpeg) |
 
 | Detalhes do Jogo | Consoles por Marca | Perfil e Estatísticas |
 | :---: | :---: | :---: |
-| ![Detalhes](/assets/DetalhesJogo.jpeg) | ![Consoles](/assets/Consoles.jpeg) | ![Perfil](/assets/Perfil.jpeg) |
+| ![Detalhes](./assets/Detalhes-jogo.jpeg) | ![Consoles](./assets/Consoles.jpeg) | ![Perfil](./assets/Perfil.jpeg) |
 
 ---
 
