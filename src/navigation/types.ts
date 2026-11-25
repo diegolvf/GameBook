@@ -1,5 +1,6 @@
 import { RawgGame } from '../types/rawgType';
-import { Game } from '../types';
+import { BrandId, Console as GameConsole, Game } from '../types';
+
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
@@ -17,4 +18,5 @@ export type AppStackParamList = {
   AddGame: { game: RawgGame };
   GameDetail: { gameId: string };
   EditGame: { game: Game };
+  ConsoleForm: { brand: BrandId; existing?: GameConsole };
 };

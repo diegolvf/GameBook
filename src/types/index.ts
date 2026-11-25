@@ -1,22 +1,35 @@
 export type GameStatus = 'want_to_play' | 'playing' | 'paused' | 'completed';
 export type GameFormat = 'physical' | 'digital';
 
-export interface Profile {
-  id: string;
-  username: string;
-  created_at: string;
-}
+export type BrandId =
+  | 'nintendo'
+  | 'sony'
+  | 'microsoft'
+  | 'sega'
+  | 'neogeo'
+  | 'steam'
+  | 'atari';
 
 export interface Console {
   id: string;
   user_id: string;
-  platform_id: number | null;
+  brand: BrandId;
   name: string;
-  image_url: string | null;
-  store: string | null;
+  released: string | null; 
+  variant: string | null; 
+  edition: string | null;
   price: number | null;
-  purchase_date: string | null; // formato "2026-11-13"
-  notes: string | null;
+  purchase_date: string | null;
+  platform_id: number | null; // não usado nesta versão
+  image_url: string | null; // não usado nesta versão
+  store: string | null; // não usado nesta versão
+  notes: string | null; // não usado nesta versão
+  created_at: string;
+}
+
+export interface Profile {
+  id: string;
+  username: string;
   created_at: string;
 }
 
